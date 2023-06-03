@@ -1,8 +1,9 @@
 package web.model;
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 
 @Entity
 @Table(name = "users")
@@ -10,11 +11,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Pattern(regexp = "^[a-zA-Z-А-аЯ-я]+$", message = "Только русские и английские буквы")
+    @NotEmpty(message = "Not null")
     private String name;
-
+    @NotEmpty(message = "Not null")
+    @Size(min = 2, max = 15, message = "Необходимое количество знаков от2 до 15")
     private String lastName;
-
+    @Max(value = 100, message = "Положительное число от 0 до 100")
+    @Min(value = 0, message = "Положительное число от 0 до 100")
     private int age;
 
     public User() {
